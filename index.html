@@ -223,82 +223,100 @@
       <!-- Las tarjetas se cargarán dinámicamente aquí -->
     </main>
   </div>
+<script>
+  // 1. REEMPLAZA ESTOS DOS DATOS:
+  const SHEET_ID = '1BVgIcWCtT9HyC6EGh7fUGoaAhQZ1Q3aVL5tdaFRZQ4Q'; // Pega aquí el ID largo de tu Google Sheet
+  const NOMBRE_HOJA = 'Propiedades';   // El nombre de la pestaña abajo en Google Sheets (por defecto es "Hoja 1" o "Sheet1")
 
-  <script>
-    // Datos de ejemplo (Luego los puedes conectar con Google Sheets)
-    const propiedades = [
-      { id: 1, titulo: "Moderna Casa en Andalue", operacion: "Venta", tipo: "Casa", comuna: "San Pedro", dorm: 4, banos: 3, m2: 180, precio: "$185.000.000", foto: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600", ws: "https://wa.me/56912345678" },
-      { id: 2, titulo: "Departamento Vista al Río", operacion: "Arriendo", tipo: "Depto", comuna: "Concepcion", dorm: 2, banos: 2, m2: 65, precio: "$550.000", foto: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600", ws: "https://wa.me/56912345678" },
-      { id: 3, titulo: "Casa Familiar Machasa", operacion: "Arriendo", tipo: "Casa", comuna: "Chiguayante", dorm: 3, banos: 2, m2: 110, precio: "$680.000", foto: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600", ws: "https://wa.me/56912345678" },
-      { id: 4, titulo: "Depto Estudio Centro", operacion: "Venta", tipo: "Depto", comuna: "Concepcion", dorm: 1, banos: 1, m2: 38, precio: "$62.000.000", foto: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600", ws: "https://wa.me/56912345678" }
-    ];
+  let propiedades = [];
 
-    function renderPropiedades(lista) {
-      const container = document.getElementById('grid-propiedades');
-      container.innerHTML = '';
+  // Función para obtener los datos desde Google Sheets
+  async function cargarPropiedadesDesdeSheets() {
+    const container = document.getElementById('grid-propiedades');
+    container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">Cargando propiedades de Corretaje Llacolén...</p>`;
 
-      if(lista.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No encontramos propiedades con esos filtros.</p>`;
-        return;
-      }
+    try {
+      // Usamos la API OpenSheet para leer la planilla en JSON
+      const url = `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(NOMBRE_HOJA)}`;
+      const response = await fetch(url);
+      
+      if (!response.ok) throw new Error('Error al conectar con la planilla');
+      
+      propiedades = await response.json();
+      renderPropiedades(propiedades);
 
-      lista.forEach(p => {
-        const badgeClass = p.operacion === 'Arriendo' ? 'badge-arriendo' : 'badge-venta';
-        const cardHtml = `
-          <div class="card">
-            <div class="card-img-wrapper">
-              <img src="${p.foto}" alt="${p.titulo}" class="card-img" />
-              <div class="badges">
-                <span class="badge ${badgeClass}">${p.operacion}</span>
-                <span class="badge badge-comuna">${p.comuna}</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-price">${p.precio}</div>
-              <h3 class="card-title">${p.titulo}</h3>
-              
-              <div class="card-features">
-                <div class="feature-item"><i class="fa-solid fa-bed"></i> ${p.dorm} Dorm</div>
-                <div class="feature-item"><i class="fa-solid fa-bath"></i> ${p.banos} Baños</div>
-                <div class="feature-item"><i class="fa-solid fa-ruler-combined"></i> ${p.m2} m²</div>
-              </div>
+    } catch (error) {
+      console.error(error);
+      container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: red; padding: 3rem;">Error al cargar las propiedades. Verifica el ID de Google Sheets.</p>`;
+    }
+  }
 
-              <div class="card-actions">
-                <a href="${p.ws}" target="_blank" class="btn-ws">
-                  <i class="fa-brands fa-whatsapp"></i> Consultar
-                </a>
-                <button class="btn-details" onclick="alert('Cargando ficha de ${p.titulo}')">Ficha</button>
-              </div>
+  function renderPropiedades(lista) {
+    const container = document.getElementById('grid-propiedades');
+    container.innerHTML = '';
+
+    if (!lista || lista.length === 0) {
+      container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No encontramos propiedades con esos filtros.</p>`;
+      return;
+    }
+
+    lista.forEach(p => {
+      const badgeClass = p.operacion === 'Arriendo' ? 'badge-arriendo' : 'badge-venta';
+      const cardHtml = `
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="${p.foto}" alt="${p.titulo}" class="card-img" />
+            <div class="badges">
+              <span class="badge ${badgeClass}">${p.operacion}</span>
+              <span class="badge badge-comuna">${p.comuna}</span>
             </div>
           </div>
-        `;
-        container.innerHTML += cardHtml;
-      });
-    }
+          <div class="card-content">
+            <div class="card-price">${p.precio}</div>
+            <h3 class="card-title">${p.titulo}</h3>
+            
+            <div class="card-features">
+              <div class="feature-item"><i class="fa-solid fa-bed"></i> ${p.dorm} Dorm</div>
+              <div class="feature-item"><i class="fa-solid fa-bath"></i> ${p.banos} Baños</div>
+              <div class="feature-item"><i class="fa-solid fa-ruler-combined"></i> ${p.m2} m²</div>
+            </div>
 
-    function aplicarFiltros() {
-      const op = document.getElementById('filter-operacion').value;
-      const com = document.getElementById('filter-comuna').value;
-      const tipo = document.getElementById('filter-tipo').value;
+            <div class="card-actions">
+              <a href="${p.ws}" target="_blank" class="btn-ws">
+                <i class="fa-brands fa-whatsapp"></i> Consultar
+              </a>
+              <button class="btn-details" onclick="alert('Consulta más detalles al WhatsApp')">Ficha</button>
+            </div>
+          </div>
+        </div>
+      `;
+      container.innerHTML += cardHtml;
+    });
+  }
 
-      const filtradas = propiedades.filter(p => {
-        return (op === '' || p.operacion === op) &&
-               (com === '' || p.comuna === com) &&
-               (tipo === '' || p.tipo === tipo);
-      });
+  function aplicarFiltros() {
+    const op = document.getElementById('filter-operacion').value;
+    const com = document.getElementById('filter-comuna').value;
+    const tipo = document.getElementById('filter-tipo').value;
 
-      renderPropiedades(filtradas);
-    }
+    const filtradas = propiedades.filter(p => {
+      return (op === '' || p.operacion === op) &&
+             (com === '' || p.comuna === com) &&
+             (tipo === '' || p.tipo === tipo);
+    });
 
-    function resetFiltros() {
-      document.getElementById('filter-operacion').value = '';
-      document.getElementById('filter-comuna').value = '';
-      document.getElementById('filter-tipo').value = '';
-      renderPropiedades(propiedades);
-    }
+    renderPropiedades(filtradas);
+  }
 
-    // Inicializar
+  function resetFiltros() {
+    document.getElementById('filter-operacion').value = '';
+    document.getElementById('filter-comuna').value = '';
+    document.getElementById('filter-tipo').value = '';
     renderPropiedades(propiedades);
-  </script>
+  }
+
+  // Cargar propiedades al entrar a la web
+  cargarPropiedadesDesdeSheets();
+</script>
 </body>
 </html>
