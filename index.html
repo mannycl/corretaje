@@ -192,30 +192,26 @@
       .menu-toggle { display: block; }
       .hero-section h1 { font-size: 2rem; }
     }
-  /* Corrección de superposición en móviles */
-@media (max-width: 768px) {
-  /* Asegura que el contenedor de filtros no se sobreponga al contenido */
-  .filtros-container, 
-  .filters-wrapper,
-  .filtros {
-    position: relative !important; /* Evita que flote sobre las tarjetas */
-    z-index: 10 !important;
-    margin-bottom: 1.5rem !important;
-  }
+    
+/* Corrección de niveles de capa (z-index) para filtros en móviles */
+.filtros,
+.filtros-container,
+.filters-wrapper {
+  position: relative !important;
+  z-index: 100 !important; /* Capa alta para que los selectores/desplegables queden SIEMPRE arriba */
+}
 
-  /* Asegura que la grilla de propiedades se ubique debajo de los filtros */
+.card {
+  position: relative;
+  z-index: 1 !important; /* Capa baja para las tarjetas de propiedades */
+}
+
+@media (max-width: 768px) {
+  /* Asegura que en celular las propiedades fluyan debajo de los filtros */
   #grid-propiedades {
     position: relative;
     z-index: 1;
-    clear: both;
-  }
-
-  /* Ajuste para que los campos del filtro se apilen verticalmente en celulares */
-  .filtros-group,
-  .filters-wrapper form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    margin-top: 1rem;
   }
 }
     
