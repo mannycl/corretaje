@@ -193,25 +193,32 @@
       .hero-section h1 { font-size: 2rem; }
     }
     
-/* Corrección de niveles de capa (z-index) para filtros en móviles */
-.filtros,
-.filtros-container,
-.filters-wrapper {
-  position: relative !important;
-  z-index: 100 !important; /* Capa alta para que los selectores/desplegables queden SIEMPRE arriba */
-}
+/* --- COMPORTAMIENTO MÓVIL: FILTROS PRIMERO, PROPIEDADES DEBAJO --- */
+@media (max-width: 900px) {
+  /* 1. Cambiamos el contenedor principal a 1 sola columna vertical */
+  .main-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    margin-top: 1rem !important;
+  }
 
-.card {
-  position: relative;
-  z-index: 1 !important; /* Capa baja para las tarjetas de propiedades */
-}
+  /* 2. Quitamos cualquier posición pegajosa (sticky/fixed) en móvil */
+  .filters-sidebar,
+  .filtros,
+  .filtros-container {
+    position: relative !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  }
 
-@media (max-width: 768px) {
-  /* Asegura que en celular las propiedades fluyan debajo de los filtros */
+  /* 3. La grilla de propiedades se ubica naturalmente abajo */
+  .properties-grid,
   #grid-propiedades {
-    position: relative;
-    z-index: 1;
-    margin-top: 1rem;
+    width: 100% !important;
+    position: relative !important;
   }
 }
     
