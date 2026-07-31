@@ -9,9 +9,9 @@
   
   <style>
     :root {
-      --primary: #0f4c81; /* Azul Confiable */
+      --primary: #0f4c81;
       --primary-hover: #0b375e;
-      --accent: #20b2aa; /* Turquesa */
+      --accent: #20b2aa;
       --bg: #f8fafc;
       --card-bg: #ffffff;
       --text-main: #1e293b;
@@ -19,18 +19,18 @@
       --border: #e2e8f0;
       --radius: 16px;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-      --header-height: 80px;
+      --header-height: 85px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding-top: var(--header-height); }
     a { text-decoration: none; color: inherit; transition: 0.2s; }
-    ul { list-style: none; }
 
-    /* --- BARRA DE NAVEGACIÓN SUPERIOR --- */
+    /* --- HEADER CON FONDO ESTILIZADO --- */
     header {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border);
+      /* Fondo con degradado sobrio y textura visual */
+      background: linear-gradient(135deg, rgba(15, 76, 129, 0.97) 0%, rgba(11, 55, 94, 0.97) 100%), 
+                  url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200') center/cover;
       height: var(--header-height);
       display: flex;
       justify-content: space-between;
@@ -40,219 +40,180 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      backdrop-filter: blur(5px);
     }
-    .logo { font-weight: 700; font-size: 1.4rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+    .logo { font-weight: 700; font-size: 1.4rem; color: #ffffff; display: flex; align-items: center; gap: 0.6rem; }
     .logo i { color: var(--accent); }
 
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a { font-size: 0.95rem; font-weight: 500; color: var(--text-main); padding: 0.5rem 0; border-bottom: 2px solid transparent; }
-    .nav-links a:hover { color: var(--primary); border-bottom-color: var(--accent); }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; color: #e0f2fe; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
+    .nav-links a:hover { color: #ffffff; border-bottom-color: var(--accent); }
     
-    .nav-btns { display: flex; gap: 1rem; align-items: center; }
     .btn-contactar {
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      background: var(--accent); color: white; padding: 0.6rem 1.2rem;
+      border-radius: 8px; font-size: 0.9rem; font-weight: 600;
     }
-    .btn-contactar:hover { background: var(--primary-hover); }
+    .btn-contactar:hover { background: #198f88; }
+    .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: #ffffff; }
 
-    /* Menú Móvil */
-    .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
-
-    @media (max-width: 992px) {
-      .nav-links, .nav-btns { display: none; }
-      .menu-toggle { display: block; }
-      
-      .nav-links.active {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: var(--header-height);
-        left: 0;
-        width: 100%;
-        background: var(--card-bg);
-        padding: 2rem;
-        border-bottom: 1px solid var(--border);
-        box-shadow: var(--shadow);
-      }
-    }
-
-    /* --- HERO/CONTENEDOR PRINCIPAL --- */
+    /* --- HERO --- */
     .hero-section {
       background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-      padding: 4rem 2rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 2rem; text-align: center; border-bottom: 1px solid var(--border);
     }
-    .hero-section h1 { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; font-weight: 800; }
-    .hero-section p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+    .hero-section h1 { font-size: 2.3rem; color: var(--primary); margin-bottom: 0.8rem; font-weight: 800; }
+    .hero-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
 
     /* --- LAYOUT DEL BUSCADOR Y GRILLA --- */
     .main-container {
-      max-width: 1400px;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 2rem;
+      max-width: 1400px; margin: 2.5rem auto; padding: 0 1.5rem;
+      display: grid; grid-template-columns: 280px 1fr; gap: 2rem;
     }
 
     /* Sidebar / Filtros */
     .filters-sidebar {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      height: fit-content;
-      position: sticky;
-      top: calc(var(--header-height) + 20px);
+      background: var(--card-bg); padding: 1.5rem; border-radius: var(--radius);
+      box-shadow: var(--shadow); border: 1px solid var(--border); height: fit-content;
+      position: sticky; top: calc(var(--header-height) + 20px);
     }
     .filters-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: space-between; }
-    .filter-group { margin-bottom: 1.5rem; }
-    .filter-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .filter-group { margin-bottom: 1.2rem; }
+    .filter-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem; text-transform: uppercase; }
     .filter-group select {
-      width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px;
-      outline: none; font-size: 0.95rem; background: var(--bg); transition: all 0.2s;
+      width: 100%; padding: 0.7rem; border: 1px solid var(--border); border-radius: 8px; outline: none; font-size: 0.9rem; background: var(--bg);
     }
-    .filter-group select:focus { border-color: var(--primary); background: #fff; }
-    
     .btn-reset {
-      width: 100%; padding: 0.65rem; background: transparent; border: 1px solid var(--border);
-      border-radius: 8px; color: var(--text-muted); font-weight: 500; cursor: pointer; transition: 0.2s;
+      width: 100%; padding: 0.6rem; background: transparent; border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text-muted); font-weight: 500; cursor: pointer;
     }
-    .btn-reset:hover { background: #f1f5f9; color: var(--text-main); }
 
     /* Grid de Propiedades */
-    .properties-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.8rem;
-    }
+    .properties-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; }
 
-    /* Card de Propiedad (Modernizada) */
+    /* Card de Propiedad */
     .card {
       background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
       box-shadow: var(--shadow); border: 1px solid var(--border);
       transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column;
     }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1); }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1); }
+    
+    /* Carrusel en Card */
     .card-img-wrapper { position: relative; height: 220px; width: 100%; background: #e2e8f0; }
     .card-img { width: 100%; height: 100%; object-fit: cover; }
     
-    .badges { position: absolute; top: 1rem; left: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .badge {
-      padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-      color: #fff; backdrop-filter: blur(8px); box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5); color: white; border: none;
+      width: 32px; height: 32px; cursor: pointer; border-radius: 50%;
+      font-size: 0.8rem; z-index: 5; transition: 0.2s; display: flex; align-items: center; justify-content: center;
     }
+    .carousel-btn:hover { background: rgba(0, 0, 0, 0.8); }
+    .carousel-btn.prev { left: 0.5rem; }
+    .carousel-btn.next { right: 0.5rem; }
+
+    .badges { position: absolute; top: 0.8rem; left: 0.8rem; display: flex; gap: 0.4rem; z-index: 5; }
+    .badge { padding: 0.3rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: #fff; }
     .badge-arriendo { background: rgba(15, 76, 129, 0.9); }
     .badge-venta { background: rgba(32, 178, 170, 0.9); }
     .badge-comuna { background: rgba(30, 41, 59, 0.75); }
 
     .card-content { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
-    .card-price { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 0.25rem; }
-    .card-title { font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 1rem; line-height: 1.3; height: 2.6rem; overflow: hidden; }
+    .card-price { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 0.25rem; }
+    .card-title { font-size: 1rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.8rem; height: 2.6rem; overflow: hidden; }
 
     .card-features {
-      display: flex; justify-content: space-between; padding: 0.75rem 0;
+      display: flex; justify-content: space-between; padding: 0.6rem 0;
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      margin-bottom: 1.25rem; font-size: 0.85rem; color: var(--text-muted);
+      margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);
     }
-    .feature-item { display: flex; align-items: center; gap: 0.4rem; }
 
-    .card-actions { display: grid; grid-template-columns: 1fr; gap: 0.5rem; margin-top: auto; }
+    .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: auto; }
     .btn-ws {
-      background: #25D366; color: white; text-decoration: none; padding: 0.75rem;
-      border-radius: 8px; font-weight: 600; font-size: 0.9rem; display: flex;
-      align-items: center; justify-content: center; gap: 0.5rem;
+      background: #25D366; color: white; border: none; padding: 0.65rem;
+      border-radius: 8px; font-weight: 600; font-size: 0.85rem; display: flex;
+      align-items: center; justify-content: center; gap: 0.4rem; cursor: pointer;
     }
-    .btn-ws:hover { background: #1eb855; }
+    .btn-details {
+      background: var(--bg); color: var(--text-main); border: 1px solid var(--border);
+      padding: 0.65rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+    }
+    .btn-details:hover { background: #e2e8f0; }
 
-    /* --- OTRAS SECCIONES --- */
-    .content-section {
-        max-width: 1000px; margin: 5rem auto; padding: 0 1.5rem; text-align: center;
+    /* --- MODAL DE DETALLE / FICHA --- */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px);
+      display: none; justify-content: center; align-items: center;
+      z-index: 2000; padding: 1rem;
     }
-    .content-section h2 { font-size: 2rem; color: var(--primary); margin-bottom: 1.5rem; }
-    .content-section p { color: var(--text-muted); max-width: 700px; margin: 0 auto 1.5rem; }
-
-    /* --- PIE DE PÁGINA (FOOTER) --- */
-    footer {
-      background: var(--primary);
-      color: #e0f2fe;
-      padding: 4rem 2rem 2rem;
-      margin-top: 5rem;
-    }
-    .footer-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 3rem;
-    }
-    .footer-about h3 { color: white; margin-bottom: 1rem; font-size: 1.2rem; }
-    .footer-links h3 { color: white; margin-bottom: 1rem; font-size: 1.1rem; }
-    .footer-links ul li { margin-bottom: 0.75rem; }
-    .footer-links a:hover { color: white; text-decoration: underline; }
+    .modal-overlay.active { display: flex; }
     
-    .footer-contact h3 { color: white; margin-bottom: 1rem; font-size: 1.1rem; }
-    .footer-contact li { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; }
-    .footer-contact i { color: var(--accent); font-size: 1.1rem; }
-
-    .footer-bottom {
-      max-width: 1400px; margin: 3rem auto 0; padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
-      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+    .modal-content {
+      background: white; border-radius: var(--radius); max-width: 800px; width: 100%;
+      max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      position: relative; animation: modalIn 0.25s ease-out;
     }
+    @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-    /* Responsividad */
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.5); color: white;
+      border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 10;
+    }
+    .modal-body { padding: 2rem; }
+    .modal-gallery { height: 380px; position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; background: #000; }
+    .modal-img { width: 100%; height: 100%; object-fit: contain; }
+    .modal-title { font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 0.5rem; }
+    .modal-price { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 1rem; }
+    .modal-info-text { background: var(--bg); padding: 1.2rem; border-radius: 10px; color: var(--text-main); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; white-space: pre-line; }
+
+    /* FOOTER */
+    footer { background: var(--primary); color: #e0f2fe; padding: 3rem 2rem 1.5rem; margin-top: 4rem; }
+    .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+    .footer-bottom { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; }
+
     @media (max-width: 900px) {
       .main-container { grid-template-columns: 1fr; }
-      .hero-section h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+      .menu-toggle { display: block; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVEGACIÓN SUPERIOR -->
+  <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
   <header>
     <a href="#" class="logo">
         <i class="fa-solid fa-house-chimney-window"></i> 
-        <span>Llacolén</span>
+        <span>Corretaje Llacolén</span>
     </a>
     
     <nav class="nav-links" id="navLinks">
       <a href="#">Inicio</a>
       <a href="#propiedades">Propiedades</a>
-      <a href="#nosotros">Quiénes Somos</a>
-      <a href="#servicios">Servicios</a>
       <a href="#contacto">Contacto</a>
     </nav>
     
-    <div class="nav-btns">
-        <a href="https://wa.me/56912345678" target="_blank" class="btn-ws">
-            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    <div>
+        <a href="https://wa.me/56912345678" target="_blank" class="btn-contactar">
+            <i class="fa-brands fa-whatsapp"></i> Contactar
         </a>
-    </div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <i class="fa-solid fa-bars"></i>
     </div>
   </header>
 
-  <!-- HERO/BIENVENIDA -->
+  <!-- HERO -->
   <section class="hero-section">
-      <h1>Encuentra tu lugar ideal</h1>
-      <p>Corretaje Llacolén te acompaña en cada paso para comprar, vender o arrendar tu propiedad en Concepción y alrededores.</p>
+      <h1>Encuentra tu lugar ideal en el Biobío</h1>
+      <p>Propiedades exclusivas en venta y arriendo con la confianza y gestión de Corretaje Llacolén.</p>
   </section>
 
-  <!-- SECCIÓN PRINCIPAL: BUSCADOR Y GRILLA -->
+  <!-- PRINCIPAL -->
   <div class="main-container" id="propiedades">
     <!-- FILTROS -->
     <aside class="filters-sidebar">
       <div class="filters-title">
-        <span>Buscar</span>
+        <span>Filtros</span>
         <i class="fa-solid fa-sliders"></i>
       </div>
 
@@ -285,149 +246,132 @@
         </select>
       </div>
 
-      <button class="btn-reset" onclick="resetFiltros()">Limpiar</button>
+      <button class="btn-reset" onclick="resetFiltros()">Limpiar Filtros</button>
     </aside>
 
     <!-- GRILLA -->
     <main class="properties-grid" id="grid-propiedades">
-      <!-- Datos cargados dinámicamente desde JS -->
+      <!-- Datos cargados dinámicamente -->
     </main>
   </div>
 
-  <!-- SECCIÓN QUIÉNES SOMOS -->
-  <section id="nosotros" class="content-section">
-      <h2>Quiénes Somos</h2>
-      <p>Somos un equipo de profesionales apasionados por el corretaje de propiedades en la Región del Biobío. En Corretaje Llacolén nos distinguimos por nuestra transparencia, ética y compromiso personalizado con cada cliente.</p>
-      <p>Nuestro objetivo no es solo cerrar un negocio, sino construir relaciones duraderas ayudándote a encontrar el hogar de tus sueños o el espacio ideal para tu inversión.</p>
-  </section>
+  <!-- MODAL / VENTANA DE DETALLE -->
+  <div class="modal-overlay" id="modalDetalle">
+    <div class="modal-content">
+      <button class="modal-close" onclick="cerrarModal()">&times;</button>
+      <div class="modal-body">
+        <div class="modal-gallery">
+          <img id="modalImg" src="" class="modal-img" />
+          <button class="carousel-btn prev" onclick="cambiarFotoModal(-1)">&#10094;</button>
+          <button class="carousel-btn next" onclick="cambiarFotoModal(1)">&#10095;</button>
+        </div>
+        <div class="modal-price" id="modalPrecio"></div>
+        <h2 class="modal-title" id="modalTitulo"></h2>
+        
+        <div class="card-features" id="modalFeatures" style="margin-bottom: 1.5rem;"></div>
 
-  <!-- SECCIÓN SERVICIOS -->
-  <section id="servicios" class="content-section">
-    <h2>Nuestros Servicios</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; text-align: left;">
-        <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border);">
-            <i class="fa-solid fa-tags" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
-            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Venta de Propiedades</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Gestión integral para vender tu propiedad al mejor precio y en el menor tiempo.</p>
-        </div>
-        <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border);">
-            <i class="fa-solid fa-key" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
-            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Arriendos</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Búsqueda rápida y selección rigurosa de arrendatarios confiables.</p>
-        </div>
-        <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border);">
-            <i class="fa-solid fa-calculator" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
-            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Tasaciones</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Valoración precisa y actualizada de tu inmueble en el mercado actual.</p>
-        </div>
+        <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Información de la Propiedad</h4>
+        <div class="modal-info-text" id="modalInfo"></div>
+
+        <a id="modalWsBtn" href="" target="_blank" class="btn-ws" style="padding: 1rem; font-size: 1rem;">
+          <i class="fa-brands fa-whatsapp"></i> Consultar por esta propiedad
+        </a>
+      </div>
     </div>
-</section>
+  </div>
 
-  <!-- PIE DE PÁGINA -->
+  <!-- FOOTER -->
   <footer id="contacto">
     <div class="footer-container">
-      <div class="footer-about">
-        <h3>Corretaje Llacolén</h3>
-        <p style="font-size: 0.9rem; opacity: 0.8;">Tu socio confiable en el mercado inmobiliario del Gran Concepción. Ética, profesionalismo y resultados.</p>
+      <div>
+        <h3 style="color:white; margin-bottom:1rem;">Corretaje Llacolén</h3>
+        <p style="font-size:0.9rem; opacity:0.8;">Tu corredora de confianza en Concepción y la Región del Biobío.</p>
       </div>
-      
-      <div class="footer-links">
-        <h3>Enlaces Rápidos</h3>
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#propiedades">Propiedades</a></li>
-          <li><a href="#nosotros">Quiénes Somos</a></li>
-          <li><a href="#servicios">Servicios</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-contact">
-        <h3>Contacto</h3>
-        <ul>
-          <li><i class="fa-solid fa-location-dot"></i> Concepción, Región del Biobío</li>
-          <li><i class="fa-solid fa-phone"></i> +56 9 1234 5678</li>
-          <li><i class="fa-solid fa-envelope"></i> contacto@llacolen.cl</li>
-          <li><i class="fa-brands fa-instagram"></i> @corretaje_llacolen</li>
-        </ul>
+      <div>
+        <h3 style="color:white; margin-bottom:1rem;">Contacto</h3>
+        <p style="font-size:0.9rem; opacity:0.8;"><i class="fa-solid fa-phone"></i> +56 9 1234 5678</p>
+        <p style="font-size:0.9rem; opacity:0.8;"><i class="fa-solid fa-envelope"></i> contacto@llacolen.cl</p>
       </div>
     </div>
-    
     <div class="footer-bottom">
-      &copy; 2023 Corretaje Llacolén. Todos los derechos reservados.
+      &copy; Corretaje Llacolén. Todos los derechos reservados.
     </div>
   </footer>
 
   <script>
-    // --- CONFIGURACIÓN DE GOOGLE SHEETS (OpenSheet) ---
-    // Reemplaza con tus datos reales:
-    const SHEET_ID = '1BVgIcWCtT9HyC6EGh7fUGoaAhQZ1Q3aVL5tdaFRZQ4Q'; // ID largo de tu Sheet
-    const NOMBRE_HOJA = 'Propiedades'; // Nombre de la pestaña
+    // --- CONFIGURACIÓN DE GOOGLE SHEETS ---
+    const SHEET_ID = '1BVgIcWCtT9HyC6EGh7fUGoaAhQZ1Q3aVL5tdaFRZQ4Q'; 
+    const NOMBRE_HOJA = 'Propiedades';
 
-    let propiedades = []; // Aquí se guardarán los datos cargados
+    let propiedades = [];
+    let fotosModalActuales = [];
+    let idxFotoModal = 0;
 
-    // --- FUNCIÓN PARA MENÚ MÓVIL ---
-    function toggleMenu() {
-        document.getElementById('navLinks').classList.toggle('active');
-    }
-
-    // --- CARGAR DATOS DESDE GOOGLE SHEETS ---
+    // Cargar datos desde Sheets
     async function cargarPropiedadesDesdeSheets() {
       const container = document.getElementById('grid-propiedades');
-      container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">Actualizando propiedades desde Corretaje Llacolén...</p>`;
+      container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">Cargando propiedades...</p>`;
 
       try {
         const url = `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(NOMBRE_HOJA)}`;
         const response = await fetch(url);
-        
-        if (!response.ok) throw new Error('Error de conexión con la planilla.');
+        if (!response.ok) throw new Error('Error al conectar con la planilla');
         
         propiedades = await response.json();
-        renderPropiedades(propiedades); // Renderizar todas por defecto
+        renderPropiedades(propiedades);
 
       } catch (error) {
         console.error(error);
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #dc2626; padding: 3rem; background: #fee2e2; border-radius: 12px;">Error al cargar propiedades. Por favor, verifica la configuración de la planilla.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: red; padding: 3rem;">Error al cargar datos de Google Sheets.</p>`;
       }
     }
 
-    // --- RENDERIZAR GRILLA DE PROPIEDADES ---
+    // Renderizar tarjetas
     function renderPropiedades(lista) {
       const container = document.getElementById('grid-propiedades');
-      container.innerHTML = ''; // Limpiar grilla
+      container.innerHTML = '';
 
       if (!lista || lista.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 4rem;">No se encontraron propiedades que coincidan con los filtros seleccionados.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 4rem;">No hay propiedades disponibles.</p>`;
         return;
       }
 
-      lista.forEach(p => {
-        // Asegurar que la URL de WhatsApp sea correcta
-        const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa%20la%20propiedad:%20${encodeURIComponent(p.titulo)}`;
-
+      lista.forEach((p, index) => {
+        // Separa múltiples links de fotos si están por coma
+        const fotos = p.foto ? p.foto.split(',').map(u => u.trim()) : ['https://via.placeholder.com/600x400?text=Sin+Foto'];
         const badgeClass = p.operacion && p.operacion.toLowerCase() === 'arriendo' ? 'badge-arriendo' : 'badge-venta';
-        
+        const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa:%20${encodeURIComponent(p.titulo)}`;
+
+        const tieneVarias = fotos.length > 1;
+        const controlesCarrusel = tieneVarias ? `
+          <button class="carousel-btn prev" onclick="cambiarFotoCard(${index}, -1, event)">&#10094;</button>
+          <button class="carousel-btn next" onclick="cambiarFotoCard(${index}, 1, event)">&#10095;</button>
+        ` : '';
+
         const cardHtml = `
           <div class="card">
             <div class="card-img-wrapper">
-              <img src="${p.foto || 'https://via.placeholder.com/600x400?text=Sin+Foto'}" alt="${p.titulo}" class="card-img" onerror="this.src='https://via.placeholder.com/600x400?text=Error+Imagen'"/>
+              <img src="${fotos[0]}" id="img-card-${index}" data-fotos='${JSON.stringify(fotos)}' data-actual="0" class="card-img" onerror="this.src='https://via.placeholder.com/600x400?text=Error+Imagen'"/>
               <div class="badges">
                 <span class="badge ${badgeClass}">${p.operacion || 'Consultar'}</span>
                 <span class="badge badge-comuna">${p.comuna || 'Biobío'}</span>
               </div>
+              ${controlesCarrusel}
             </div>
             <div class="card-content">
               <div class="card-price">${p.precio || 'Consultar'}</div>
-              <h3 class="card-title">${p.titulo || 'Propiedad sin título'}</h3>
+              <h3 class="card-title">${p.titulo || 'Propiedad'}</h3>
               
               <div class="card-features">
-                <div class="feature-item"><i class="fa-solid fa-bed"></i> ${p.dorm || '-'} <span class="hide-mobile">Dorm</span></div>
-                <div class="feature-item"><i class="fa-solid fa-bath"></i> ${p.banos || '-'} <span class="hide-mobile">Baños</span></div>
-                <div class="feature-item"><i class="fa-solid fa-ruler-combined"></i> ${p.m2 || '-'} m²</div>
+                <div><i class="fa-solid fa-bed"></i> ${p.dorm || '-'} Dorm</div>
+                <div><i class="fa-solid fa-bath"></i> ${p.banos || '-'} Baños</div>
+                <div><i class="fa-solid fa-ruler-combined"></i> ${p.m2 || '-'} m²</div>
               </div>
 
               <div class="card-actions">
+                <button class="btn-details" onclick="abrirModal(${index})">Detalle</button>
                 <a href="${wsUrl}" target="_blank" class="btn-ws">
-                  <i class="fa-brands fa-whatsapp"></i> Consultar WhatsApp
+                  <i class="fa-brands fa-whatsapp"></i> Contactar
                 </a>
               </div>
             </div>
@@ -437,27 +381,68 @@
       });
     }
 
-    // --- SISTEMA DE FILTROS ---
+    // Cambiar fotos en la tarjeta
+    function cambiarFotoCard(cardIdx, dir, event) {
+      event.stopPropagation();
+      const img = document.getElementById(`img-card-${cardIdx}`);
+      const fotos = JSON.parse(img.getAttribute('data-fotos'));
+      let actual = parseInt(img.getAttribute('data-actual'));
+
+      actual = (actual + dir + fotos.length) % fotos.length;
+      img.src = fotos[actual];
+      img.setAttribute('data-actual', actual);
+    }
+
+    // Lógica del Modal (Ficha Extendida)
+    function abrirModal(index) {
+      const p = propiedades[index];
+      fotosModalActuales = p.foto ? p.foto.split(',').map(u => u.trim()) : ['https://via.placeholder.com/600x400?text=Sin+Foto'];
+      idxFotoModal = 0;
+
+      document.getElementById('modalImg').src = fotosModalActuales[0];
+      document.getElementById('modalPrecio').innerText = p.precio || 'Consultar Precio';
+      document.getElementById('modalTitulo').innerText = p.titulo || 'Propiedad sin título';
+      
+      document.getElementById('modalFeatures').innerHTML = `
+        <div><i class="fa-solid fa-bed"></i> ${p.dorm || '-'} Dormitorios</div>
+        <div><i class="fa-solid fa-bath"></i> ${p.banos || '-'} Baños</div>
+        <div><i class="fa-solid fa-ruler-combined"></i> ${p.m2 || '-'} m² Totales</div>
+        <div><i class="fa-solid fa-location-dot"></i> ${p.comuna || 'Biobío'}</div>
+      `;
+
+      // Carga el texto de la celda "informacion"
+      document.getElementById('modalInfo').innerText = p.informacion || 'No hay descripción detallada disponible para esta propiedad por el momento.';
+      
+      const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa%20la%20propiedad:%20${encodeURIComponent(p.titulo)}`;
+      document.getElementById('modalWsBtn').href = wsUrl;
+
+      document.getElementById('modalDetalle').classList.add('active');
+    }
+
+    function cerrarModal() {
+      document.getElementById('modalDetalle').classList.remove('active');
+    }
+
+    function cambiarFotoModal(dir) {
+      idxFotoModal = (idxFotoModal + dir + fotosModalActuales.length) % fotosModalActuales.length;
+      document.getElementById('modalImg').src = fotosModalActuales[idxFotoModal];
+    }
+
+    // Filtros
     function aplicarFiltros() {
       const op = document.getElementById('filter-operacion').value;
       const com = document.getElementById('filter-comuna').value;
       const tipo = document.getElementById('filter-tipo').value;
 
       const filtradas = propiedades.filter(p => {
-        // Normalizar textos para comparar sin fallos
-        const opSheet = p.operacion ? p.operacion.trim() : '';
-        const comSheet = p.comuna ? p.comuna.trim() : '';
-        const tipoSheet = p.tipo ? p.tipo.trim() : '';
-
-        return (op === '' || opSheet === op) &&
-               (com === '' || comSheet === com) &&
-               (tipo === '' || tipoSheet === tipo);
+        return (op === '' || (p.operacion && p.operacion.trim() === op)) &&
+               (com === '' || (p.comuna && p.comuna.trim() === com)) &&
+               (tipo === '' || (p.tipo && p.tipo.trim() === tipo));
       });
 
       renderPropiedades(filtradas);
     }
 
-    // --- RESETEAR FILTROS ---
     function resetFiltros() {
       document.getElementById('filter-operacion').value = '';
       document.getElementById('filter-comuna').value = '';
@@ -465,7 +450,7 @@
       renderPropiedades(propiedades);
     }
 
-    // --- INICIALIZACIÓN ---
+    // Inicializar
     cargarPropiedadesDesdeSheets();
   </script>
 </body>
