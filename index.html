@@ -376,58 +376,109 @@
       }
     }
 
-    function renderPropiedades(lista) {
-      const container = document.getElementById('grid-propiedades');
-      container.innerHTML = '';
+    // Función para juntar las fotos de las columnas foto1 a foto5 + comas
+function obtenerListaFotos(p) {
+  let lista = [];
 
-      if (!lista || lista.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 4rem;">No hay propiedades disponibles con este filtro.</p>`;
-        return;
-      }
-
-      lista.forEach((p, index) => {
-        const fotos = p.foto ? p.foto.split(',').map(u => u.trim()) : ['https://via.placeholder.com/600x400?text=Sin+Foto'];
-        const badgeClass = p.operacion && p.operacion.toLowerCase() === 'arriendo' ? 'badge-arriendo' : 'badge-venta';
-        const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa:%20${encodeURIComponent(p.titulo)}`;
-
-        const tieneVarias = fotos.length > 1;
-        const controlesCarrusel = tieneVarias ? `
-          <button class="carousel-btn prev" onclick="cambiarFotoCard(${index}, -1, event)">&#10094;</button>
-          <button class="carousel-btn next" onclick="cambiarFotoCard(${index}, 1, event)">&#10095;</button>
-        ` : '';
-
-        const cardHtml = `
-          <div class="card">
-            <div class="card-img-wrapper">
-              <img src="${fotos[0]}" id="img-card-${index}" data-fotos='${JSON.stringify(fotos)}' data-actual="0" class="card-img" onerror="this.src='https://via.placeholder.com/600x400?text=Error+Imagen'"/>
-              <div class="badges">
-                <span class="badge ${badgeClass}">${p.operacion || 'Consultar'}</span>
-                <span class="badge badge-comuna">${p.comuna || 'Biobío'}</span>
-              </div>
-              ${controlesCarrusel}
-            </div>
-            <div class="card-content">
-              <div class="card-price">${p.precio || 'Consultar'}</div>
-              <h3 class="card-title">${p.titulo || 'Propiedad'}</h3>
-              
-              <div class="card-features">
-                <div><i class="fa-solid fa-bed"></i> ${p.dorm || '-'} Dorm</div>
-                <div><i class="fa-solid fa-bath"></i> ${p.banos || '-'} Baños</div>
-                <div><i class="fa-solid fa-ruler-combined"></i> ${p.m2 || '-'} m²</div>
-              </div>
-
-              <div class="card-actions">
-                <button class="btn-details" onclick="abrirModal(${index})">Detalle</button>
-                <a href="${wsUrl}" target="_blank" class="btn-ws">
-                  <i class="fa-brands fa-whatsapp"></i> Contactar
-                </a>
-              </div>
-            </div>
-          </div>
-        `;
-        container.innerHTML += cardHtml;
-      });
+  // Recorremos las columnas del 1 al 5
+  for (let i = 1; i <= 5; i++) {
+    const valorCelda = p[`foto${i}`];
+    if (valorCelda && valorCelda.trim() !== '') {
+      // Si la celda contiene comas (ej. en foto5), las separaciones se agregan individualmente
+      const subFotos = valorCelda.split(',').map(u => u.trim()).filter(u => u !== '');
+      lista.push(...subFotos);
     }
+  }
+
+  // Compatibilidad por si en alguna propiedad antigua usaste la columna 'foto' única
+  if (lista.length === 0 && p.foto) {
+    lista = p.foto.split(',').map(u => u.trim()).filter(u => u !== '');
+  }
+
+  // Si no hay fotos en ninguna celda, se muestra la imagen por defecto
+  return lista.length > 0 ? lista : ['https://via.placeholder.com/600x400?text=Sin+Foto'];
+}
+
+// Renderizar tarjetas de propiedades
+function renderPropiedades(lista) {
+  const container = document.getElementById('grid-propiedades');
+  container.innerHTML = '';
+
+  if (!lista || lista.length === 0) {
+    container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 4rem;">No hay propiedades disponibles.</p>`;
+    return;
+  }
+
+  lista.forEach((p, index) => {
+    // Obtenemos el arreglo de fotos usando la nueva lógica flexible
+    const fotos = obtenerListaFotos(p);
+    const badgeClass = p.operacion && p.operacion.toLowerCase() === 'arriendo' ? 'badge-arriendo' : 'badge-venta';
+    const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa:%20${encodeURIComponent(p.titulo)}`;
+
+    const tieneVarias = fotos.length > 1;
+    const controlesCarrusel = tieneVarias ? `
+      <button class="carousel-btn prev" onclick="cambiarFotoCard(${index}, -1, event)">&#10094;</button>
+      <button class="carousel-btn next" onclick="cambiarFotoCard(${index}, 1, event)">&#10095;</button>
+    ` : '';
+
+    const cardHtml = `
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img src="${fotos[0]}" id="img-card-${index}" data-fotos='${JSON.stringify(fotos)}' data-actual="0" class="card-img" onerror="this.src='https://via.placeholder.com/600x400?text=Error+Imagen'"/>
+          <div class="badges">
+            <span class="badge ${badgeClass}">${p.operacion || 'Consultar'}</span>
+            <span class="badge badge-comuna">${p.comuna || 'Biobío'}</span>
+          </div>
+          ${controlesCarrusel}
+        </div>
+        <div class="card-content">
+          <div class="card-price">${p.precio || 'Consultar'}</div>
+          <h3 class="card-title">${p.titulo || 'Propiedad'}</h3>
+          
+          <div class="card-features">
+            <div><i class="fa-solid fa-bed"></i> ${p.dorm || '-'} Dorm</div>
+            <div><i class="fa-solid fa-bath"></i> ${p.banos || '-'} Baños</div>
+            <div><i class="fa-solid fa-ruler-combined"></i> ${p.m2 || '-'} m²</div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn-details" onclick="abrirModal(${index})">Detalle</button>
+            <a href="${wsUrl}" target="_blank" class="btn-ws">
+              <i class="fa-brands fa-whatsapp"></i> Contactar
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+    container.innerHTML += cardHtml;
+  });
+}
+
+// Lógica del Modal (Ficha Extendida)
+function abrirModal(index) {
+  const p = propiedades[index];
+  // Usa la misma función para la galería modal
+  fotosModalActuales = obtenerListaFotos(p);
+  idxFotoModal = 0;
+
+  document.getElementById('modalImg').src = fotosModalActuales[0];
+  document.getElementById('modalPrecio').innerText = p.precio || 'Consultar Precio';
+  document.getElementById('modalTitulo').innerText = p.titulo || 'Propiedad sin título';
+  
+  document.getElementById('modalFeatures').innerHTML = `
+    <div><i class="fa-solid fa-bed"></i> ${p.dorm || '-'} Dormitorios</div>
+    <div><i class="fa-solid fa-bath"></i> ${p.banos || '-'} Baños</div>
+    <div><i class="fa-solid fa-ruler-combined"></i> ${p.m2 || '-'} m² Totales</div>
+    <div><i class="fa-solid fa-location-dot"></i> ${p.comuna || 'Biobío'}</div>
+  `;
+
+  document.getElementById('modalInfo').innerText = p.informacion || 'No hay descripción detallada disponible para esta propiedad por el momento.';
+  
+  const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa%20la%20propiedad:%20${encodeURIComponent(p.titulo)}`;
+  document.getElementById('modalWsBtn').href = wsUrl;
+
+  document.getElementById('modalDetalle').classList.add('active');
+}
 
     function cambiarFotoCard(cardIdx, dir, event) {
       event.stopPropagation();
