@@ -25,11 +25,11 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding-top: var(--header-height); }
     a { text-decoration: none; color: inherit; transition: 0.2s; }
+    ul { list-style: none; }
 
-    /* --- HEADER CON FONDO ESTILIZADO --- */
+    /* --- BARRA DE NAVEGACIÓN SUPERIOR (HEADER) --- */
     header {
-      /* Fondo con degradado sobrio y textura visual */
-      background: linear-gradient(135deg, rgba(15, 76, 129, 0.97) 0%, rgba(11, 55, 94, 0.97) 100%), 
+      background: linear-gradient(135deg, rgba(15, 76, 129, 0.95) 0%, rgba(11, 55, 94, 0.95) 100%), 
                   url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200') center/cover;
       height: var(--header-height);
       display: flex;
@@ -57,17 +57,21 @@
     .btn-contactar:hover { background: #198f88; }
     .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: #ffffff; }
 
-    /* --- HERO --- */
+    /* --- LANDING HERO CON IMAGEN DE FONDO IMPACTANTE --- */
     .hero-section {
-      background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-      padding: 3.5rem 2rem; text-align: center; border-bottom: 1px solid var(--border);
+      position: relative;
+      background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.65)), 
+                  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      padding: 6rem 2rem;
+      text-align: center;
+      color: white;
     }
-    .hero-section h1 { font-size: 2.3rem; color: var(--primary); margin-bottom: 0.8rem; font-weight: 800; }
-    .hero-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+    .hero-section h1 { font-size: 2.8rem; margin-bottom: 1rem; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+    .hero-section p { font-size: 1.2rem; max-width: 650px; margin: 0 auto; opacity: 0.95; font-weight: 300; }
 
     /* --- LAYOUT DEL BUSCADOR Y GRILLA --- */
     .main-container {
-      max-width: 1400px; margin: 2.5rem auto; padding: 0 1.5rem;
+      max-width: 1400px; margin: 3rem auto; padding: 0 1.5rem;
       display: grid; grid-template-columns: 280px 1fr; gap: 2rem;
     }
 
@@ -133,13 +137,20 @@
     .btn-ws {
       background: #25D366; color: white; border: none; padding: 0.65rem;
       border-radius: 8px; font-weight: 600; font-size: 0.85rem; display: flex;
-      align-items: center; justify-content: center; gap: 0.4rem; cursor: pointer;
+      align-items: center; justify-content: center; gap: 0.4rem; cursor: pointer; text-decoration: none;
     }
     .btn-details {
       background: var(--bg); color: var(--text-main); border: 1px solid var(--border);
       padding: 0.65rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
     }
     .btn-details:hover { background: #e2e8f0; }
+
+    /* --- SECCIONES EXTRA (RESTAURADAS) --- */
+    .content-section {
+        max-width: 1000px; margin: 5rem auto; padding: 0 1.5rem; text-align: center;
+    }
+    .content-section h2 { font-size: 2rem; color: var(--primary); margin-bottom: 1.2rem; font-weight: 700; }
+    .content-section p { color: var(--text-muted); max-width: 750px; margin: 0 auto 1.2rem; line-height: 1.6; }
 
     /* --- MODAL DE DETALLE / FICHA --- */
     .modal-overlay {
@@ -169,14 +180,15 @@
     .modal-info-text { background: var(--bg); padding: 1.2rem; border-radius: 10px; color: var(--text-main); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; white-space: pre-line; }
 
     /* FOOTER */
-    footer { background: var(--primary); color: #e0f2fe; padding: 3rem 2rem 1.5rem; margin-top: 4rem; }
-    .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
-    .footer-bottom { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; }
+    footer { background: var(--primary); color: #e0f2fe; padding: 4rem 2rem 2rem; margin-top: 5rem; }
+    .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+    .footer-bottom { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: rgba(255,255,255,0.6); }
 
     @media (max-width: 900px) {
       .main-container { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .menu-toggle { display: block; }
+      .hero-section h1 { font-size: 2rem; }
     }
   </style>
 </head>
@@ -192,6 +204,8 @@
     <nav class="nav-links" id="navLinks">
       <a href="#">Inicio</a>
       <a href="#propiedades">Propiedades</a>
+      <a href="#nosotros">Quiénes Somos</a>
+      <a href="#servicios">Servicios</a>
       <a href="#contacto">Contacto</a>
     </nav>
     
@@ -202,18 +216,17 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- LANDING HERO CON IMAGEN PROFESIONAL -->
   <section class="hero-section">
       <h1>Encuentra tu lugar ideal en el Biobío</h1>
-      <p>Propiedades exclusivas en venta y arriendo con la confianza y gestión de Corretaje Llacolén.</p>
+      <p>Acompañamos cada paso para comprar, vender o arrendar tu propiedad en Concepción y alrededores con total transparencia.</p>
   </section>
 
-  <!-- PRINCIPAL -->
+  <!-- SECCIÓN PRINCIPAL: PROPIEDADES Y FILTROS -->
   <div class="main-container" id="propiedades">
-    <!-- FILTROS -->
     <aside class="filters-sidebar">
       <div class="filters-title">
-        <span>Filtros</span>
+        <span>Buscar</span>
         <i class="fa-solid fa-sliders"></i>
       </div>
 
@@ -249,13 +262,41 @@
       <button class="btn-reset" onclick="resetFiltros()">Limpiar Filtros</button>
     </aside>
 
-    <!-- GRILLA -->
     <main class="properties-grid" id="grid-propiedades">
       <!-- Datos cargados dinámicamente -->
     </main>
   </div>
 
-  <!-- MODAL / VENTANA DE DETALLE -->
+  <!-- SECCIÓN QUIÉNES SOMOS (RESTAURADA) -->
+  <section id="nosotros" class="content-section">
+      <h2>Quiénes Somos</h2>
+      <p>Somos un equipo especialista en el corretaje de propiedades en la Región del Biobío. En Corretaje Llacolén nos guiamos por la transparencia, puntualidad y compromiso ético con cada uno de nuestros clientes.</p>
+      <p>Buscamos facilitarte la vida, ya sea para encontrar tu próximo hogar o asegurar una inversión rentable y segura en el mercado inmobiliario.</p>
+  </section>
+
+  <!-- SECCIÓN SERVICIOS (RESTAURADA) -->
+  <section id="servicios" class="content-section">
+    <h2>Nuestros Servicios</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; text-align: left;">
+        <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow);">
+            <i class="fa-solid fa-tags" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Venta de Propiedades</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Publicidad efectiva y gestión personalizada para cerrar tu venta al mejor precio de mercado.</p>
+        </div>
+        <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow);">
+            <i class="fa-solid fa-key" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Gestión de Arriendos</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Evaluación comercial rigurosa para seleccionar arrendatarios responsables y confiables.</p>
+        </div>
+        <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow);">
+            <i class="fa-solid fa-calculator" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Tasaciones Comerciales</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Estudios de mercado para determinar el valor real y competitivo de tu inmueble.</p>
+        </div>
+    </div>
+  </section>
+
+  <!-- MODAL DE DETALLE -->
   <div class="modal-overlay" id="modalDetalle">
     <div class="modal-content">
       <button class="modal-close" onclick="cerrarModal()">&times;</button>
@@ -270,7 +311,7 @@
         
         <div class="card-features" id="modalFeatures" style="margin-bottom: 1.5rem;"></div>
 
-        <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Información de la Propiedad</h4>
+        <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Información Detallada</h4>
         <div class="modal-info-text" id="modalInfo"></div>
 
         <a id="modalWsBtn" href="" target="_blank" class="btn-ws" style="padding: 1rem; font-size: 1rem;">
@@ -285,11 +326,21 @@
     <div class="footer-container">
       <div>
         <h3 style="color:white; margin-bottom:1rem;">Corretaje Llacolén</h3>
-        <p style="font-size:0.9rem; opacity:0.8;">Tu corredora de confianza en Concepción y la Región del Biobío.</p>
+        <p style="font-size:0.9rem; opacity:0.8;">Tu corredora de confianza en Concepción y el Gran Biobío.</p>
+      </div>
+      <div>
+        <h3 style="color:white; margin-bottom:1rem;">Enlaces Rápidos</h3>
+        <ul style="font-size: 0.9rem; opacity:0.8;">
+          <li style="margin-bottom:0.4rem;"><a href="#">Inicio</a></li>
+          <li style="margin-bottom:0.4rem;"><a href="#propiedades">Propiedades</a></li>
+          <li style="margin-bottom:0.4rem;"><a href="#nosotros">Quiénes Somos</a></li>
+          <li style="margin-bottom:0.4rem;"><a href="#servicios">Servicios</a></li>
+        </ul>
       </div>
       <div>
         <h3 style="color:white; margin-bottom:1rem;">Contacto</h3>
-        <p style="font-size:0.9rem; opacity:0.8;"><i class="fa-solid fa-phone"></i> +56 9 1234 5678</p>
+        <p style="font-size:0.9rem; opacity:0.8; margin-bottom: 0.4rem;"><i class="fa-solid fa-location-dot"></i> Concepción, Chile</p>
+        <p style="font-size:0.9rem; opacity:0.8; margin-bottom: 0.4rem;"><i class="fa-solid fa-phone"></i> +56 9 1234 5678</p>
         <p style="font-size:0.9rem; opacity:0.8;"><i class="fa-solid fa-envelope"></i> contacto@llacolen.cl</p>
       </div>
     </div>
@@ -307,37 +358,34 @@
     let fotosModalActuales = [];
     let idxFotoModal = 0;
 
-    // Cargar datos desde Sheets
     async function cargarPropiedadesDesdeSheets() {
       const container = document.getElementById('grid-propiedades');
-      container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">Cargando propiedades...</p>`;
+      container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">Cargando catálogo...</p>`;
 
       try {
         const url = `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(NOMBRE_HOJA)}`;
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Error al conectar con la planilla');
+        if (!response.ok) throw new Error('Error al conectar con Google Sheets');
         
         propiedades = await response.json();
         renderPropiedades(propiedades);
 
       } catch (error) {
         console.error(error);
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: red; padding: 3rem;">Error al cargar datos de Google Sheets.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #dc2626; padding: 3rem;">Error al cargar las propiedades.</p>`;
       }
     }
 
-    // Renderizar tarjetas
     function renderPropiedades(lista) {
       const container = document.getElementById('grid-propiedades');
       container.innerHTML = '';
 
       if (!lista || lista.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 4rem;">No hay propiedades disponibles.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 4rem;">No hay propiedades disponibles con este filtro.</p>`;
         return;
       }
 
       lista.forEach((p, index) => {
-        // Separa múltiples links de fotos si están por coma
         const fotos = p.foto ? p.foto.split(',').map(u => u.trim()) : ['https://via.placeholder.com/600x400?text=Sin+Foto'];
         const badgeClass = p.operacion && p.operacion.toLowerCase() === 'arriendo' ? 'badge-arriendo' : 'badge-venta';
         const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa:%20${encodeURIComponent(p.titulo)}`;
@@ -381,7 +429,6 @@
       });
     }
 
-    // Cambiar fotos en la tarjeta
     function cambiarFotoCard(cardIdx, dir, event) {
       event.stopPropagation();
       const img = document.getElementById(`img-card-${cardIdx}`);
@@ -393,7 +440,6 @@
       img.setAttribute('data-actual', actual);
     }
 
-    // Lógica del Modal (Ficha Extendida)
     function abrirModal(index) {
       const p = propiedades[index];
       fotosModalActuales = p.foto ? p.foto.split(',').map(u => u.trim()) : ['https://via.placeholder.com/600x400?text=Sin+Foto'];
@@ -410,7 +456,6 @@
         <div><i class="fa-solid fa-location-dot"></i> ${p.comuna || 'Biobío'}</div>
       `;
 
-      // Carga el texto de la celda "informacion"
       document.getElementById('modalInfo').innerText = p.informacion || 'No hay descripción detallada disponible para esta propiedad por el momento.';
       
       const wsUrl = p.ws && p.ws.startsWith('http') ? p.ws : `https://wa.me/56912345678?text=Hola,%20me%20interesa%20la%20propiedad:%20${encodeURIComponent(p.titulo)}`;
@@ -428,7 +473,6 @@
       document.getElementById('modalImg').src = fotosModalActuales[idxFotoModal];
     }
 
-    // Filtros
     function aplicarFiltros() {
       const op = document.getElementById('filter-operacion').value;
       const com = document.getElementById('filter-comuna').value;
@@ -450,7 +494,6 @@
       renderPropiedades(propiedades);
     }
 
-    // Inicializar
     cargarPropiedadesDesdeSheets();
   </script>
 </body>
